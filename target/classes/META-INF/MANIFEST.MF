@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: library-management
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: mayank
+Implementation-Vendor-Id: org.mayank
+Build-Jdk: 1.8.0_73
+Implementation-URL: http://projects.spring.io/spring-boot/library-mana
+ gement/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
