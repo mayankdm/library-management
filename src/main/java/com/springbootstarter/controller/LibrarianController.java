@@ -1,5 +1,6 @@
 package com.springbootstarter.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootstarter.models.Librarian;
+import com.springbootstarter.models.Library;
 import com.springbootstarter.services.LibrarianService;
+import com.springbootstarter.services.LibraryService;
 
 @RestController
 public class LibrarianController {
 	@Autowired
 	public LibrarianService librarianService;
+	
+	@Autowired
+	public LibraryService libraryService;
 	
 	@RequestMapping("/librarians")
 	public List<Librarian> getAllLibrarians() {
@@ -27,6 +33,11 @@ public class LibrarianController {
 		return librarianService.getLibrarian(id);
 	}
 	
+	@RequestMapping("/libraries/{id}/librarians")
+	public List<Librarian> getLibrariansByLibrary(@PathVariable Integer id){
+		return librarianService.getLibrariansByLibrary(id);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST,value="/librarians")
 	public void addLibrarian(@RequestBody Librarian librarian){
 		librarianService.addLibrarian(librarian);
@@ -35,6 +46,14 @@ public class LibrarianController {
 	@RequestMapping(method=RequestMethod.PUT,value="/librarians")
 	public void updateLibrarian(@RequestBody Librarian librarian){
 		librarianService.updateLibrarian(librarian);
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT,value="/librarians/{id}")
+	public void updateBook(@RequestBody LinkedHashMap<String, Integer> lib,@PathVariable Integer id){
+		Library library = libraryService.getLibrary(lib.get("id")); 
+		Librarian _newLibrarian = librarianService.getLibrarian(id);
+		_newLibrarian.setLibrary(library);
+		librarianService.updateLibrarian(_newLibrarian);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="/librarians/{id}")

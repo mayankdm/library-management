@@ -1,9 +1,11 @@
 package com.springbootstarter.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -13,23 +15,24 @@ public class Book {
 	private int bookId;
 	private String name;
 	private String author;
-	private Date issueDate;
+	private LocalDate issueDate;
 	
 	@OneToOne
 	private Librarian librarian;
 	
-	@OneToOne
+	@ManyToOne
 	private Library library;
 
 	public Book(){
 		
 	}
 	
-	public Book(int bookId, String name, String author) {
+	public Book(int bookId, String name, String author, Library lib) {
 		super();
 		this.bookId = bookId;
 		this.name = name;
 		this.author = author;
+		this.library = lib;
 	}
 
 	public int getBookId() {
@@ -68,16 +71,16 @@ public class Book {
 		return library;
 	}
 
-	public void setLibrary(Library library) {
-		this.library = library;
-	}
-
-	public Date getIssueDate() {
+	public LocalDate getIssueDate() {
 		return issueDate;
 	}
 
-	public void setIssueDate(Date issueDate) {
+	public void setIssueDate(LocalDate issueDate) {
 		this.issueDate = issueDate;
+	}
+
+	public void setLibrary(Library library) {
+		this.library = library;
 	}
 	
 }

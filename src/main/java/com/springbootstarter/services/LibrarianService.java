@@ -35,4 +35,8 @@ public class LibrarianService {
 	public void deleteLibrarian(Integer id) {
 		librarianRepository.delete(id);
 	}
+
+	public List<Librarian> getLibrariansByLibrary(Integer id) {
+		return librarianRepository.findByLibraryLibraryId(id);
+	}
 }

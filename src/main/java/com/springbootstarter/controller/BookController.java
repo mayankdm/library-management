@@ -1,7 +1,7 @@
 package com.springbootstarter.controller;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,10 @@ public class BookController {
 	public Book getBook(@PathVariable Integer id){
 		return bookService.getBook(id);
 	}
+	@RequestMapping("/librarians/{roll}/books")
+	public List<Book> getBookByLibrarian(@PathVariable Integer roll){
+		return bookService.getBookByLibrarian(roll);
+	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/books")
 	public void addBook(@RequestBody Book book){
@@ -44,12 +48,16 @@ public class BookController {
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/books")
 	public void updateBook(@RequestBody Book book){
-		Librarian librarian = librarianService.getLibrarian(book.getLibrarian().getRoll());
-		Library library = libraryService.getLibrary(book.getLibrary().getLibraryId());
-		book.setLibrarian(librarian);
-		book.setLibrary(library);
-		book.setIssueDate(new Date());
 		bookService.updateBook(book);
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT,value="/books/{id}")
+	public void updateBook(@RequestBody LinkedHashMap<String, Integer> book,@PathVariable Integer id){
+		Librarian librarian = librarianService.getLibrarian(book.get("roll")); 
+		Book _newBook = bookService.getBook(id);
+		_newBook.setLibrarian(librarian);
+		_newBook.setIssueDate(LocalDate.now());
+		bookService.updateBook(_newBook);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="/books/{id}")

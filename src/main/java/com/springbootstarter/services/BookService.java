@@ -35,4 +35,12 @@ public class BookService {
 	public void deleteBook(Integer id) {
 		bookRepository.delete(id);
 	}
+
+	public List<Book> getAllBooksByLibrary(Integer id) {
+		return bookRepository.findByLibraryLibraryId(id);
+	}
+
+	public List<Book> getBookByLibrarian(Integer roll) {
+		return bookRepository.findByLibrarianRoll(roll);
+	}
 }

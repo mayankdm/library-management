@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springbootstarter.models.Book;
 import com.springbootstarter.models.Library;
+import com.springbootstarter.services.BookService;
 import com.springbootstarter.services.LibraryService;
 
 @RestController
 public class LibraryController {
 	@Autowired
 	public LibraryService libraryService;
+	
+	@Autowired
+	public BookService bookService;
 	
 	@RequestMapping("/libraries")
 	public List<Library> getAllLibrarys() {
@@ -40,5 +45,9 @@ public class LibraryController {
 	@RequestMapping(method=RequestMethod.DELETE,value="/libraries/{id}")
 	public void deleteLibrary(@RequestBody Library library, @PathVariable Integer id){
 		libraryService.deleteLibrary(id);
+	}
+	@RequestMapping("/libraries/{id}/books")
+	public List<Book> getBooksByLibrary(@PathVariable Integer id){
+		return bookService.getAllBooksByLibrary(id);
 	}
 }
