@@ -1,5 +1,6 @@
 package com.springbootstarter.controller;
 
+
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,10 +32,22 @@ public class BookController {
 		return bookService.getAllBooks();
 	}
 	
-	@RequestMapping("/books/{id}")
-	public Book getBook(@PathVariable Integer id){
-		return bookService.getBook(id);
+	@RequestMapping("/books/{value}")
+	public Book getBookById(@PathVariable String value){
+		int id = 0;
+		boolean success = true;
+		try{
+			id = Integer.parseInt(value);
+		}catch (Exception e) {
+			success = false;
+		}
+		if(success){
+			return bookService.getBook(id);
+		}else{
+			return bookService.getBookByName(value);
+		}
 	}
+	
 	@RequestMapping("{author}/books")
 	public List<Book> getBookByAuthor(@PathVariable String author){
 		return bookService.getBookByAuthorName(author);

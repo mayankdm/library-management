@@ -3,6 +3,7 @@ package com.springbootstarter.models;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Librarian {
@@ -14,6 +15,9 @@ public class Librarian {
 	
 	@ManyToOne
 	private Library library;
+	
+	@OneToOne
+	private Book book;
 
 	public Librarian() {
 
@@ -66,5 +70,14 @@ public class Librarian {
 	public void setLibrary(Library library) {
 		this.library = library;
 	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+	
 
 }

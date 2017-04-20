@@ -10,4 +10,8 @@ public interface LibrarianRepository extends CrudRepository<Librarian, Integer>{
 
 	List<Librarian> findByLibraryLibraryId(Integer id);
 
+	List<Librarian> findByBookBookId(Integer id);
+
+	Librarian findByName(String value);
+
 }

@@ -48,4 +48,8 @@ public class BookService {
 		
 		return bookRepository.findByAuthor(author);
 	}
+
+	public Book getBookByName(String name) {
+		return bookRepository.findByName(name);
+	}
 }

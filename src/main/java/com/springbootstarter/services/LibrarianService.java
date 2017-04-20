@@ -39,4 +39,12 @@ public class LibrarianService {
 	public List<Librarian> getLibrariansByLibrary(Integer id) {
 		return librarianRepository.findByLibraryLibraryId(id);
 	}
+
+	public List<Librarian> getLibrariansByBook(Integer id) {
+		return librarianRepository.findByBookBookId(id);
+	}
+
+	public Librarian getLibrarianByName(String value) {
+		return librarianRepository.findByName(value);
+	}
 }
