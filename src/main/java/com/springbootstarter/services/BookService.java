@@ -52,4 +52,8 @@ public class BookService {
 	public Book getBookByName(String name) {
 		return bookRepository.findByName(name);
 	}
+
+	public int deleteByName(String value) {
+		return bookRepository.deleteByName(value);
+	}
 }

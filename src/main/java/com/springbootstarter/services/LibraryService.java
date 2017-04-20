@@ -35,4 +35,12 @@ public class LibraryService {
 	public void deleteLibrary(Integer id) {
 		libraryRepository.delete(id);
 	}
+
+	public Library getLibraryByName(String value) {
+		return libraryRepository.findByName(value);
+	}
+
+	public Library deleteLibraryByName(String value) {
+		return libraryRepository.deleteByName(value);
+	}
 }

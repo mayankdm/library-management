@@ -27,7 +27,7 @@ public class BookController {
 	@Autowired
 	public LibraryService libraryService;
 	
-	@RequestMapping("/books")
+	@RequestMapping(value={"/books"})
 	public List<Book> getAllBooks() {
 		return bookService.getAllBooks();
 	}
@@ -59,26 +59,41 @@ public class BookController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/books")
-	public void addBook(@RequestBody Book book){
+	public String addBook(@RequestBody Book book){
 		bookService.addBook(book);
+		return "Book created successfully!";
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/books")
-	public void updateBook(@RequestBody Book book){
+	public String updateBook(@RequestBody Book book){
 		bookService.updateBook(book);
+		return "Book updated successfully!";
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/books/{id}")
-	public void updateBook(@RequestBody LinkedHashMap<String, Integer> book,@PathVariable Integer id){
+	public String updateBook(@RequestBody LinkedHashMap<String, Integer> book,@PathVariable Integer id){
 		Librarian librarian = librarianService.getLibrarian(book.get("roll")); 
 		Book _newBook = bookService.getBook(id);
 		_newBook.setLibrarian(librarian);
 		_newBook.setIssueDate(LocalDate.now());
 		bookService.updateBook(_newBook);
+		return "Book updated successfully!";
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE,value="/books/{id}")
-	public void deleteBook(@RequestBody Book book, @PathVariable Integer id){
-		bookService.deleteBook(id);
+	@RequestMapping(method=RequestMethod.DELETE,value="/books/{value}")
+	public String deleteBook(@RequestBody Book book, @PathVariable String value){
+		int id = 0;
+		boolean success = true;
+		try {
+			id = Integer.parseInt(value);
+		} catch (Exception e) {
+			success = false;
+		}
+		if(success){
+			bookService.deleteBook(id);
+		}else{
+			bookService.deleteByName(value);
+		}
+		return "Book deleted successfully!";
 	}
 }
