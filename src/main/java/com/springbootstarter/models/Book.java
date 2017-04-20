@@ -27,12 +27,11 @@ public class Book {
 		
 	}
 	
-	public Book(int bookId, String name, String author, Library lib) {
+	public Book(int bookId, String name, String author) {
 		super();
 		this.bookId = bookId;
 		this.name = name;
 		this.author = author;
-		this.library = lib;
 	}
 
 	public int getBookId() {

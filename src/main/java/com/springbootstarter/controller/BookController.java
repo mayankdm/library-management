@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootstarter.models.Book;
 import com.springbootstarter.models.Librarian;
-import com.springbootstarter.models.Library;
 import com.springbootstarter.services.BookService;
 import com.springbootstarter.services.LibrarianService;
 import com.springbootstarter.services.LibraryService;
@@ -36,6 +35,11 @@ public class BookController {
 	public Book getBook(@PathVariable Integer id){
 		return bookService.getBook(id);
 	}
+	@RequestMapping("{author}/books")
+	public List<Book> getBookByAuthor(@PathVariable String author){
+		return bookService.getBookByAuthorName(author);
+	}
+	
 	@RequestMapping("/librarians/{roll}/books")
 	public List<Book> getBookByLibrarian(@PathVariable Integer roll){
 		return bookService.getBookByLibrarian(roll);

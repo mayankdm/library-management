@@ -43,4 +43,9 @@ public class BookService {
 	public List<Book> getBookByLibrarian(Integer roll) {
 		return bookRepository.findByLibrarianRoll(roll);
 	}
+
+	public List<Book> getBookByAuthorName(String author) {
+		
+		return bookRepository.findByAuthor(author);
+	}
 }
