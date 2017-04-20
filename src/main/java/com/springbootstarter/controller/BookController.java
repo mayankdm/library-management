@@ -17,9 +17,11 @@ import com.springbootstarter.models.Librarian;
 import com.springbootstarter.services.BookService;
 import com.springbootstarter.services.LibrarianService;
 import com.springbootstarter.services.LibraryService;
-
+/*@RestController binds and register controllers with server*/
 @RestController
 public class BookController {
+	
+	/*@Autowired automatically binding Services to the controller*/
 	@Autowired
 	public BookService bookService;
 	@Autowired
@@ -27,7 +29,8 @@ public class BookController {
 	@Autowired
 	public LibraryService libraryService;
 	
-	@RequestMapping(value={"/books"})
+	/*@RequestMapping allows server to register request and response handling methods*/
+	@RequestMapping(value="/books",produces="application/json")
 	public List<Book> getAllBooks() {
 		return bookService.getAllBooks();
 	}
